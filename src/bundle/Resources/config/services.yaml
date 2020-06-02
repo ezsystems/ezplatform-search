@@ -1,0 +1,15 @@
+services:
+  _defaults:
+      autoconfigure: true
+      autowire: true
+      public: false
+
+      EzSystems\EzPlatformAdminUiBundle\Controller\SearchController:
+          parent: Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+          autowire: true
+          lazy: true
+          arguments:
+              $searchQueryType: '@EzSystems\EzPlatformAdminUi\QueryType\SearchQueryType'
+              $configResolver: '@ezpublish.config.resolver'
+          tags:
+              - controller.service_arguments
