@@ -6,11 +6,23 @@
  */
 namespace Ibexa\Platform\Bundle\SearchBundle;
 
-use EzSystems\EzPlatformRestBundle\DependencyInjection\Compiler;
-use EzSystems\EzPlatformRestBundle\DependencyInjection\Security\RestSessionBasedFactory;
+use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Compiler\ViewBuilderRegistryPass;
+use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Configuration\Parser\Search;
+use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Configuration\Parser\SearchListView;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class PlatformSearchBundle extends Bundle
 {
+    public function build(ContainerBuilder $container)
+    {
+        /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension $core */
+        $core = $container->getExtension('ezpublish');
+
+        $core->addDefaultSettings(__DIR__ . '/Resources/config', ['default_settings.yaml']);
+        $core->addConfigParser(new Search());
+        $core->addConfigParser(new SearchListView());
+
+        $container->addCompilerPass(new ViewBuilderRegistryPass());
+    }
 }

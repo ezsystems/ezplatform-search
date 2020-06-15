@@ -16,11 +16,11 @@ use eZ\Publish\Core\QueryType\QueryType;
 use EzSystems\EzPlatformAdminUi\Form\Data\Search\SearchData;
 use EzSystems\EzPlatformAdminUi\Form\Type\Search\SearchType;
 use EzSystems\EzPlatformAdminUi\Search\PagerSearchContentToDataMapper;
+use Ibexa\Platform\Search\View\SearchListView;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends AbstractController
 {
@@ -30,6 +30,7 @@ class SearchController extends AbstractController
     /** @var \EzSystems\EzPlatformAdminUi\Search\PagerSearchContentToDataMapper */
     private $pagerSearchContentToDataMapper;
 
+    /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $formFactory;
 
     /** @var \eZ\Publish\API\Repository\SectionService */
@@ -47,7 +48,7 @@ class SearchController extends AbstractController
     public function __construct(
         SearchService $searchService,
         PagerSearchContentToDataMapper $pagerSearchContentToDataMapper,
-        FormFactory $formFactory,
+        FormFactoryInterface $formFactory,
         SectionService $sectionService,
         ContentTypeService $contentTypeService,
         QueryType $searchQueryType,
@@ -69,7 +70,7 @@ class SearchController extends AbstractController
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \InvalidArgumentException
      */
-    public function searchAction(Request $request): Response
+    public function searchAction(Request $request, SearchListView $view): SearchListView
     {
         $search = $request->query->get('search');
         $limit = $search['limit'] ?? $this->configResolver->getParameter('pagination.search_limit');
@@ -114,6 +115,11 @@ class SearchController extends AbstractController
 
         $form->handleRequest($request);
 
+        $view->addParameters([
+            'form' => $form->createView(),
+            'user_content_type_identifier' => $this->configResolver->getParameter('user_content_type_identifier'),
+        ]);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $queryString = $data->getQuery();
@@ -132,23 +138,13 @@ class SearchController extends AbstractController
             $pagerfanta->setMaxPerPage($data->getLimit());
             $pagerfanta->setCurrentPage(min($data->getPage(), $pagerfanta->getNbPages()));
 
-//            $editForm = $this->formFactory->contentEdit(
-//                new ContentEditData()
-//            );
-
-            return $this->render('@ezdesign/ui/search/index.html.twig', [
+            $view->addParameters([
                 'results' => $this->pagerSearchContentToDataMapper->map($pagerfanta),
-                'form' => $form->createView(),
                 'pager' => $pagerfanta,
-//                'form_edit' => $editForm->createView(),
-                'user_content_type_identifier' => $this->configResolver->getParameter('user_content_type_identifier'),
             ]);
         }
 
-        return $this->render('@ezdesign/ui/search/index.html.twig', [
-            'form' => $form->createView(),
-            'user_content_type_identifier' => $this->configResolver->getParameter('user_content_type_identifier'),
-        ]);
+        return $view;
     }
 
     private function getSearchLanguageFilter(?string $languageCode, ?string $queryString): array

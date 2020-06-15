@@ -4,12 +4,35 @@ services:
       autowire: true
       public: false
 
-      EzSystems\EzPlatformAdminUiBundle\Controller\SearchController:
-          parent: Symfony\Bundle\FrameworkBundle\Controller\AbstractController
-          autowire: true
-          lazy: true
-          arguments:
-              $searchQueryType: '@EzSystems\EzPlatformAdminUi\QueryType\SearchQueryType'
-              $configResolver: '@ezpublish.config.resolver'
-          tags:
-              - controller.service_arguments
+  Ibexa\Platform\Bundle\SearchBundle\Controller\SearchController:
+      arguments:
+          $searchQueryType: '@EzSystems\EzPlatformAdminUi\QueryType\SearchQueryType'
+          $configResolver: '@ezpublish.config.resolver'
+      tags:
+          - controller.service_arguments
+
+  Ibexa\Platform\Search\View\SearchListViewBuilder:
+      arguments:
+          $viewConfigurator: '@ezpublish.view.configurator'
+          $viewParametersInjector: '@ezpublish.view.view_parameters.injector.dispatcher'
+
+  Ibexa\Platform\Search\View\SearchListViewProvider:
+      arguments:
+          $matcherFactory: '@platform.user.view.search_list.matcher_factory.dynamically_configured'
+      tags:
+         - { name: ezpublish.view_provider, type: Ibexa\Platform\Search\View\SearchListView, priority: 10 }
+
+  platform.view.search_list.matcher_factory:
+      class: eZ\Bundle\EzPublishCoreBundle\Matcher\ServiceAwareMatcherFactory
+      arguments:
+        - '@eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry'
+        - '@ezpublish.api.repository'
+        - 'Ibexa\Platform\Search\View'
+
+  platform.user.view.search_list.matcher_factory.dynamically_configured:
+      class: eZ\Publish\Core\MVC\Symfony\Matcher\DynamicallyConfiguredMatcherFactoryDecorator
+      decorates: platform.view.search_list.matcher_factory
+      arguments:
+          $innerConfigurableMatcherFactory: '@platform.user.view.search_list.matcher_factory.dynamically_configured.inner'
+          $configResolver: '@ezpublish.config.resolver'
+          $parameterName: search_list_view
