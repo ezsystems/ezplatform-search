@@ -26,10 +26,6 @@ before_install:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - TEST_TIMEZONES=("America/New_York" "Asia/Calcutta" "UTC")
   - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]}
-    # Set composer credentials for private repositories
-  - if [ "$NETWORK_KEY" = "" ] ; then echo "Env variables are not available in pull requests from forks. Is your branch on the original repository?" && exit 1 ; fi
-  - travis_retry composer config http-basic.updates.ez.no $NETWORK_KEY $NETWORK_TOKEN
-  - travis_retry composer config github-oauth.github.com $GITHUB_TOKEN
 
 install:
   - travis_retry composer install --prefer-dist --no-interaction --no-suggest
