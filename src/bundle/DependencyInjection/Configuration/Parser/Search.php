@@ -37,7 +37,7 @@ class Search extends AbstractParser
             ->end();
     }
 
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
+    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
         if (empty($scopeSettings['search'])) {
             return;
