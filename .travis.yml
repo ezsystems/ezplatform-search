@@ -1,0 +1,46 @@
+dist: trusty
+sudo: required
+
+language: php
+
+cache:
+  directories:
+    - "$HOME/.composer/cache/files"
+
+matrix:
+  fast_finish: true
+  include:
+    - name: PHP 7.3 Unit tests
+      php: 7.3
+      env: TEST_CONFIG="phpunit.xml"
+    - name: Code Style Check
+      php: 7.3
+      env: CHECK_CS=1
+
+branches:
+  only:
+    - master
+    - /^\d.\d+$/
+
+before_install:
+  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - TEST_TIMEZONES=("America/New_York" "Asia/Calcutta" "UTC")
+  - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]}
+
+install:
+  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
+
+script:
+  - if [ "$TEST_CONFIG" != "" ] ; then php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c $TEST_CONFIG ; fi
+  - if [ "$CHECK_CS" == "1" ] ; then ./vendor/bin/php-cs-fixer fix -v --dry-run --show-progress=estimating; fi
+
+notifications:
+  slack:
+    rooms:
+      - secure: yxi7DjE5l+OjWoxGN1LVMXDvnadg32AK51tOB/Ha8hOzeSopMu2pCZA9n2Ftw8e1oL5E9Y67jRlH0ywNgv1n4jiE/5y4SzYb2i5SyvcXO56alpc/qed6steRmowib6DFLGUtU3gk3XfpN6E0BVZD4mGAW/Y7+N8nckHGqVUvsab+1Vw8qPkHUMe3rjTIMMSDC2S40D88xUzsu3sMwPTuCw3Nlk/PJybcYQ9+YdlXtHGbwouSBSiUzCEEVF53qRJyXTA5Gm7tKqWBlpvMKg6Moxhp5Gu0SeFwd4EzviBwIwAANTL73NVjG0YT1Ygto8d4oOodpbg6xIuiTwK8NjI18MgiJoHBnpPqA4HCFRqIokGjqU0uVqbDQKoIjPcBvRyIpA6JvFOOwNQDJIqKwiUxabx8tU7R0wTe6UWRWdAP4FuF3pvdFoLKJMv3UmV90yqY4lFBXAJPg+V95H9ttFqVnPB+zDNrbSuZjci3gcwrRkW3KfnQmgNx/I++WZpkeZnrHX5p5MtpMCA5qlScqfXWU1MNethi86kZ2HrPuQGWRd8h9UDd4hjcDYUdOLYPjNZp0JPmqpc1sxE6AAYGe8SId/B0Ttpx3F2V1z4zF3alGzb8IMkdQb4bdYQhb+nQsmKkSegIRItsQv0ES1vN81Ff188Lts23ISLAODC7nZTRLdI=
+    on_success: change
+    on_failure: always
+    on_pull_requests: false
+
+git:
+  depth: 30
