@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\DependencyInjection;
 
-use EzSystems\EzPlatformVersionComparisonBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -18,9 +17,6 @@ class PlatformSearchExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
-
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
     }
