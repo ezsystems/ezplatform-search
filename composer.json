@@ -2,7 +2,7 @@
   "name": "ezsystems/ezplatform-search",
   "description": "Platform Search bundle",
   "type": "ezplatform-bundle",
-  "license": "TTL-2.0",
+  "license": "GPL-2.0-only",
   "autoload": {
     "psr-4": {
       "Ibexa\\Platform\\Bundle\\SearchBundle\\": "src/bundle/",
