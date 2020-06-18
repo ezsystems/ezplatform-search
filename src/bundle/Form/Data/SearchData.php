@@ -118,7 +118,6 @@ class SearchData
         $this->created = $created;
     }
 
-
     public function setCreator(User $creator): void
     {
         $this->creator = $creator;

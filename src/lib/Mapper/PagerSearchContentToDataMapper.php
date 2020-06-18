@@ -51,7 +51,6 @@ class PagerSearchContentToDataMapper
         $this->languageService = $languageService;
     }
 
-
     public function map(Pagerfanta $pager): array
     {
         $data = [];
