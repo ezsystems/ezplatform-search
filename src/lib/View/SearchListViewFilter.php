@@ -73,8 +73,8 @@ class SearchListViewFilter implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $search = $request->query->get('search');
-        $limit = $search['limit'] ? (int)$search['limit'] : $this->configResolver->getParameter('pagination.search_limit');
-        $page = $search['page'] ? (int)$search['page'] : 1;
+        $limit = \is_array($search) && $search['limit'] ? (int)$search['limit'] : $this->configResolver->getParameter('pagination.search_limit');
+        $page = \is_array($search) && $search['page'] ? (int)$search['page'] : 1;
         $query = $search['query'] ?? '';
         $section = null;
         $creator = null;
