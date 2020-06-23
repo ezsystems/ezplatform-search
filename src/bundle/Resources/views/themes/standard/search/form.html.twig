@@ -45,7 +45,6 @@
             <div class="ez-filters__input-wrapper">
                 <input type="text"
                     class="form-control ez-filters__input"
-                    data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
                     value="{{ creator is not empty ? ez_content_name(creator) }}"
                     placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
                     {{ creator is not empty ? 'disabled'  }}

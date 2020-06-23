@@ -1,6 +1,5 @@
 parameters:
     ezsettings.site.pagination.search_limit: 10
-    ezsettings.site.user_content_type_identifier: ['user']
 
     ezsettings.site.search_list_view:
         full:
