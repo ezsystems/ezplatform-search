@@ -10,9 +10,8 @@ namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
 
 use Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer\DateIntervalTransformer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\DateIntervalType as BaseDateIntervalType;
 
 class DateIntervalType extends AbstractType
 {
@@ -22,15 +21,15 @@ class DateIntervalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date_interval', BaseDateIntervalType::class, [
-                'attr' => ['hidden' => true],
-                'input' => 'string',
+            ->add('start_date', DateType::class, [
+                'required' => false,
                 'widget' => 'single_text',
-                'required' => false,
+                'input' => 'datetime',
             ])
-            ->add('end_date', IntegerType::class, [
-                'attr' => ['hidden' => true],
+            ->add('end_date', DateType::class, [
                 'required' => false,
+                'widget' => 'single_text',
+                'input' => 'datetime',
             ])
             ->addModelTransformer(new DateIntervalTransformer());
     }

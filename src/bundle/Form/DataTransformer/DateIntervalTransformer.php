@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer;
 
+use DateTime;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Translates timestamp and DataInterval to domain specific timestamp date range.
@@ -40,29 +40,17 @@ class DateIntervalTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        if (null === $value || !is_array($value) || empty($value['date_interval'])) {
+        if (null === $value || !\is_array($value)) {
             return [];
         }
 
-        if (!array_key_exists('date_interval', $value) || !array_key_exists('end_date', $value)) {
-            throw new TransformationFailedException(
-                "Invalid data. Value array is missing 'date_interval' and/or 'end_date' keys"
-            );
-        }
+        $startDate = $value['start_date'] ?? (new DateTime())->setTimestamp(0);
+        $endDate = $value['end_date'] ?? new DateTime();
+        $endDate->setTime(23, 59, 59);
 
-        $date = new \DateTime();
-
-        if ($value['end_date']) {
-            $date->setTimestamp($value['end_date']);
-        }
-
-        $date->setTime(23, 59, 59);
-        $endDate = $date->getTimestamp();
-        $interval = new \DateInterval($value['date_interval']);
-        $date->sub($interval);
-        $date->setTime(00, 00, 00);
-        $startDate = $date->getTimestamp();
-
-        return ['start_date' => $startDate, 'end_date' => $endDate];
+        return [
+            'start_date' => $startDate->getTimestamp(),
+            'end_date' => $endDate->getTimestamp(),
+        ];
     }
 }
