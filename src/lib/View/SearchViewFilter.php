@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class SearchListViewFilter implements EventSubscriberInterface
+class SearchViewFilter implements EventSubscriberInterface
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

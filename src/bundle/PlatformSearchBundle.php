@@ -8,7 +8,7 @@ namespace Ibexa\Platform\Bundle\SearchBundle;
 
 use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Compiler\ViewBuilderRegistryPass;
 use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Configuration\Parser\Search;
-use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Configuration\Parser\SearchListView;
+use Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Configuration\Parser\SearchView;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -21,7 +21,7 @@ class PlatformSearchBundle extends Bundle
 
         $core->addDefaultSettings(__DIR__ . '/Resources/config', ['default_settings.yaml']);
         $core->addConfigParser(new Search());
-        $core->addConfigParser(new SearchListView());
+        $core->addConfigParser(new SearchView());
 
         $container->addCompilerPass(new ViewBuilderRegistryPass());
     }

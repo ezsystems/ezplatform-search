@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\Controller;
 
-use Ibexa\Platform\Search\View\SearchListView;
+use Ibexa\Platform\Search\View\SearchView;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SearchController extends AbstractController
 {
-    public function searchAction(SearchListView $view): SearchListView
+    public function searchAction(SearchView $view): SearchView
     {
         return $view;
     }

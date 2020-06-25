@@ -18,7 +18,7 @@ use eZ\Publish\Core\QueryType\QueryType;
 use Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper;
 use Pagerfanta\Pagerfanta;
 
-class SearchListViewBuilder implements ViewBuilder
+class SearchViewBuilder implements ViewBuilder
 {
     /** @var \eZ\Publish\Core\MVC\Symfony\View\Configurator */
     private $viewConfigurator;
@@ -54,9 +54,9 @@ class SearchListViewBuilder implements ViewBuilder
         return 'Ibexa\Platform\Bundle\SearchBundle\Controller\SearchController::searchAction' === $argument;
     }
 
-    public function buildView(array $parameters): SearchListView
+    public function buildView(array $parameters): SearchView
     {
-        $view = new SearchListView();
+        $view = new SearchView();
 
         /** @var \Symfony\Component\Form\FormInterface $form */
         $form = $parameters['form'];

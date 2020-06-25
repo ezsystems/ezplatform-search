@@ -13,7 +13,7 @@ use eZ\Publish\Core\MVC\Symfony\View\View;
 use eZ\Publish\Core\MVC\Symfony\View\ViewProvider;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
-class SearchListViewProvider implements ViewProvider
+class SearchViewProvider implements ViewProvider
 {
     /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface */
     protected $matcherFactory;
@@ -32,9 +32,9 @@ class SearchListViewProvider implements ViewProvider
         return $this->buildSearchListView($configHash);
     }
 
-    protected function buildSearchListView(array $viewConfig): SearchListView
+    protected function buildSearchListView(array $viewConfig): SearchView
     {
-        $view = new SearchListView();
+        $view = new SearchView();
 
         if (isset($viewConfig['template'])) {
             $view->setTemplateIdentifier($viewConfig['template']);

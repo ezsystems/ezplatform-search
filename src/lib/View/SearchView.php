@@ -10,6 +10,6 @@ namespace Ibexa\Platform\Search\View;
 
 use eZ\Publish\Core\MVC\Symfony\View\BaseView;
 
-class SearchListView extends BaseView
+class SearchView extends BaseView
 {
 }
