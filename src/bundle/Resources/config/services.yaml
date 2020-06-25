@@ -12,7 +12,6 @@ services:
       tags:
           - controller.service_arguments
 
-
   Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper:
       arguments:
           $contentTypeService: '@ezpublish.api.service.content_type'
