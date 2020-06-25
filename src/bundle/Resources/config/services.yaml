@@ -48,8 +48,8 @@ services:
 
   Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType:
       arguments:
-         $translator: '@translator'
          $permissionResolver: '@eZ\Publish\API\Repository\PermissionResolver'
+         $configResolver: '@ezpublish.config.resolver'
       tags:
         - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType }
 
