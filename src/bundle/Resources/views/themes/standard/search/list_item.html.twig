@@ -1,14 +1,14 @@
 <tr>
-    <td class="ez-table__cell ez-table__cell--after-icon">
+    <td>
         <a href="{{ path('_ez_content_view', {
             'contentId': row.contentId,
             'languageCode': row.translation_language_code,
         }) }}">{{ row.name }}</a>
     </td>
-    <td class="ez-table__cell">{{ row.modified|ez_full_datetime }}</td>
-    <td class="ez-table__cell">{{ row.type }}</td>
+    <td>{{ row.modified|ez_full_datetime }}</td>
+    <td>{{ row.type }}</td>
     {% if form.search_language.vars.choices|length > 1 %}
-        <td class="ez-table__cell">
+        <td>
             {% for language in row.available_translations %}
                 {{ language.name }}{% if not loop.last %}, {% endif %}
             {% endfor %}

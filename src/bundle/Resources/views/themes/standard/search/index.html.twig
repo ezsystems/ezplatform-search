@@ -1,20 +1,20 @@
 {% trans_default_domain 'search' %}
 
 {% block content %}
-    <div class="row align-items-stretch ez-main-row">
-        <div class="px-0 ez-content-container">
-            <section class="container mt-5">
+    <div>
+        <div>
+            <section>
                 {% include '@ezdesign/search/form.html.twig' with { form: form } %}
 
                 {% if results is defined %}
 
-                    <div class="ez-table-header mt-3 mx-4">
-                        <div class="ez-table-header__headline">{{ 'search.header'|trans({'%total%': pager.nbResults})|desc('Search results (%total%)') }}</div>
+                    <div>
+                        <div>{{ 'search.header'|trans({'%total%': pager.nbResults})|desc('Search results (%total%)') }}</div>
                     </div>
 
                     {% if results is empty %}
-                        <div class="mx-4">
-                            <table class="table">
+                        <div>
+                            <table>
                                 <tr>
                                     <td colspan="4">
                                         <span>{{ 'search.no_result'|trans({'%query%': form.vars.value.query})|desc('No results found for "%query%".') }}</span>
@@ -30,17 +30,17 @@
                             </ul>
                         </div>
                     {% else %}
-                        <div class="ez-scrollable-table-wrapper mx-4">
-                            <table class="table">
+                        <div>
+                            <table>
                                 <thead>
                                 <tr>
-                                    <th class="ez-table__header-cell ez-table__header-cell--after-icon">{{ 'search.name'|trans|desc('Name') }}</th>
-                                    <th class="ez-table__header-cell">{{ 'search.modified'|trans|desc('Modified') }}</th>
-                                    <th class="ez-table__header-cell">{{ 'search.type'|trans|desc('Content Type') }}</th>
+                                    <th>{{ 'search.name'|trans|desc('Name') }}</th>
+                                    <th>{{ 'search.modified'|trans|desc('Modified') }}</th>
+                                    <th>{{ 'search.type'|trans|desc('Content Type') }}</th>
                                     {% if form.search_language.vars.choices|length > 1 %}
-                                        <th class="ez-table__header-cell">{{ 'search.translations'|trans|desc('Translations') }}</th>
+                                        <th>{{ 'search.translations'|trans|desc('Translations') }}</th>
                                     {% endif %}
-                                    <th class="ez-table__header-cell"></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -52,14 +52,14 @@
                         </div>
 
                         {% if pager.haveToPaginate %}
-                            <div class="row justify-content-center align-items-center mb-2 ml-4 ez-pagination__spacing">
-                                <span class="ez-pagination__text">
+                            <div>
+                                <span>
                                     {{ 'pagination.viewing'|trans({
                                         '%viewing%': pager.currentPageResults|length,
                                         '%total%': pager.nbResults}, 'pagination')|desc('Viewing <strong>%viewing%</strong> out of <strong>%total%</strong> items')|raw }}
                                 </span>
                             </div>
-                            <div class="row justify-content-center align-items-center ez-pagination__btn mb-5 mx-4">
+                            <div>
                                 {{ pagerfanta(pager, 'ez', {'pageParameter': '[search][page]'}) }}
                             </div>
                         {% endif %}
