@@ -1,3 +1,7 @@
+imports:
+  - { resource: forms.yaml }
+  - { resource: views.yaml }
+
 services:
   _defaults:
       autoconfigure: true
@@ -8,85 +12,6 @@ services:
       tags:
           - controller.service_arguments
 
-  Ibexa\Platform\Search\View\SearchViewBuilder:
-      arguments:
-          $viewConfigurator: '@ezpublish.view.configurator'
-          $viewParametersInjector: '@ezpublish.view.view_parameters.injector.dispatcher'
-          $searchService: '@ezpublish.api.service.search'
-          $pagerSearchContentToDataMapper: '@Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper'
-          $searchQueryType: '@Ibexa\Platform\Search\QueryType\SearchQueryType'
-
-  Ibexa\Platform\Search\View\SearchViewProvider:
-      arguments:
-          $matcherFactory: '@platform.user.view.search.matcher_factory.dynamically_configured'
-      tags:
-         - { name: ezpublish.view_provider, type: Ibexa\Platform\Search\View\SearchView, priority: 10 }
-
-  platform.view.search.matcher_factory:
-      class: eZ\Bundle\EzPublishCoreBundle\Matcher\ServiceAwareMatcherFactory
-      arguments:
-          $viewMatcherRegistry: '@eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry'
-          $repository: '@ezpublish.api.repository'
-          $relativeNamespace: Ibexa\Platform\Search\View
-
-  platform.user.view.search.matcher_factory.dynamically_configured:
-      class: eZ\Publish\Core\MVC\Symfony\Matcher\DynamicallyConfiguredMatcherFactoryDecorator
-      decorates: platform.view.search.matcher_factory
-      arguments:
-          $innerConfigurableMatcherFactory: '@platform.user.view.search.matcher_factory.dynamically_configured.inner'
-          $configResolver: '@ezpublish.config.resolver'
-          $parameterName: search_view
-
-  Ibexa\Platform\Search\View\SearchViewFilter:
-      arguments:
-          $configResolver: '@ezpublish.config.resolver'
-          $formFactory: '@Symfony\Component\Form\FormFactoryInterface'
-          $sectionService: '@ezpublish.api.service.section'
-          $contentTypeService: '@ezpublish.api.service.content_type'
-      tags:
-        - { name: kernel.event_subscriber }
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType:
-      arguments:
-         $permissionResolver: '@eZ\Publish\API\Repository\PermissionResolver'
-         $configResolver: '@ezpublish.config.resolver'
-      tags:
-        - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType }
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ConfiguredLanguagesChoiceLoader:
-      arguments:
-          $languageService: '@ezpublish.api.service.language'
-          $configResolver: '@ezpublish.config.resolver'
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\Type\UserType:
-      arguments:
-          $userService: '@ezpublish.api.service.user'
-      tags:
-        - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\UserType }
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\Type\LanguageChoiceType:
-      arguments:
-         $languageChoiceLoader: '@Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ConfiguredLanguagesChoiceLoader'
-      tags:
-        - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\UserType }
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ContentTypeChoiceLoader:
-      arguments:
-          $contentTypeService: '@ezpublish.api.service.content_type'
-          $userLanguagePreferenceProvider: '@eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider'
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\Type\ContentTypeChoiceType:
-      arguments:
-          $contentTypeService: '@ezpublish.api.service.content_type'
-          $contentTypeChoiceLoader: '@Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ContentTypeChoiceLoader'
-      tags:
-        - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\ContentTypeChoiceType }
-
-  Ibexa\Platform\Bundle\SearchBundle\Form\Type\SectionChoiceType:
-      arguments:
-          $sectionService: '@eZ\Publish\Core\Repository\SiteAccessAware\SectionService'
-      tags:
-        - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SectionChoiceType }
 
   Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper:
       arguments:

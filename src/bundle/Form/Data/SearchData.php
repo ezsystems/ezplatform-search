@@ -51,6 +51,9 @@ class SearchData
     /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
     private $searchLanguage;
 
+    /** @var \eZ\Publish\API\Repository\Values\User\User[] */
+    private $searchUsersData;
+
     public function __construct(
         int $limit = 10,
         int $page = 1,
@@ -61,7 +64,8 @@ class SearchData
         array $created = [],
         ?User $creator = null,
         ?string $subtree = null,
-        ?Language $searchLanguage = null
+        ?Language $searchLanguage = null,
+        ?SearchUsersData $searchUsersData = null
     ) {
         $this->limit = $limit;
         $this->page = $page;
@@ -73,6 +77,7 @@ class SearchData
         $this->creator = $creator;
         $this->subtree = $subtree;
         $this->searchLanguage = $searchLanguage;
+        $this->searchUsersData = $searchUsersData;
     }
 
     public function setLimit(int $limit): self
@@ -128,6 +133,11 @@ class SearchData
         $this->subtree = $subtree;
     }
 
+    public function setSearchUsersData(?SearchUsersData $searchUsersData): void
+    {
+        $this->searchUsersData = $searchUsersData;
+    }
+
     public function setSearchLanguage(?Language $searchLanguage): void
     {
         $this->searchLanguage = $searchLanguage;
@@ -181,6 +191,11 @@ class SearchData
     public function getSearchLanguage(): ?Language
     {
         return $this->searchLanguage;
+    }
+
+    public function getSearchUsersData(): ?SearchUsersData
+    {
+        return $this->searchUsersData;
     }
 
     public function isFiltered(): bool

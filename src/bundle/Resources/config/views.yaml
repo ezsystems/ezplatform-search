@@ -1,0 +1,38 @@
+services:
+    Ibexa\Platform\Search\View\SearchViewProvider:
+        arguments:
+            $matcherFactory: '@platform.user.view.search.matcher_factory.dynamically_configured'
+        tags:
+            - { name: ezpublish.view_provider, type: Ibexa\Platform\Search\View\SearchView, priority: 10 }
+
+    platform.view.search.matcher_factory:
+        class: eZ\Bundle\EzPublishCoreBundle\Matcher\ServiceAwareMatcherFactory
+        arguments:
+            $viewMatcherRegistry: '@eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry'
+            $repository: '@ezpublish.api.repository'
+            $relativeNamespace: Ibexa\Platform\Search\View
+
+    platform.user.view.search.matcher_factory.dynamically_configured:
+        class: eZ\Publish\Core\MVC\Symfony\Matcher\DynamicallyConfiguredMatcherFactoryDecorator
+        decorates: platform.view.search.matcher_factory
+        arguments:
+            $innerConfigurableMatcherFactory: '@platform.user.view.search.matcher_factory.dynamically_configured.inner'
+            $configResolver: '@ezpublish.config.resolver'
+            $parameterName: search_view
+
+    Ibexa\Platform\Search\View\SearchViewFilter:
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $formFactory: '@Symfony\Component\Form\FormFactoryInterface'
+            $sectionService: '@ezpublish.api.service.section'
+            $contentTypeService: '@ezpublish.api.service.content_type'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Ibexa\Platform\Search\View\SearchViewBuilder:
+        arguments:
+            $viewConfigurator: '@ezpublish.view.configurator'
+            $viewParametersInjector: '@ezpublish.view.view_parameters.injector.dispatcher'
+            $searchService: '@ezpublish.api.service.search'
+            $pagerSearchContentToDataMapper: '@Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper'
+            $searchQueryType: '@Ibexa\Platform\Search\QueryType\SearchQueryType'
