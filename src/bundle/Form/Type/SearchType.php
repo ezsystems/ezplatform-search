@@ -55,7 +55,7 @@ final class SearchType extends AbstractType
             ->add('created', DateIntervalType::class)
             ->add('search_in_users', SearchUsersType::class, [
                 'property_path' => 'searchUsersData',
-                'required' => false
+                'required' => false,
             ])
             ->add(
                 'search_language',
