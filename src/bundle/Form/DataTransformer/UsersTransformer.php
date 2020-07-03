@@ -51,11 +51,11 @@ class UsersTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param \Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchUsersData|null $value     or if the value can not be transformed
+     * @param string|null $value
      */
     public function reverseTransform($value): SearchUsersData
     {
-        if ($value->getQuery() == null) {
+        if ($value === null) {
             return new SearchUsersData();
         }
 
