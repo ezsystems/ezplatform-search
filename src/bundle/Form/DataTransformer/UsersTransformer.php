@@ -21,11 +21,18 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UsersTransformer implements DataTransformerInterface
 {
+    /** @var \eZ\Publish\API\Repository\SearchService */
     protected $searchService;
 
-    public function __construct(SearchService $searchService)
-    {
+    /** @var string */
+    private $userContentTypeIdentifier;
+
+    public function __construct(
+        SearchService $searchService,
+        string $userContentTypeIdentifier
+    ) {
         $this->searchService = $searchService;
+        $this->userContentTypeIdentifier = $userContentTypeIdentifier;
     }
 
     /**
@@ -60,7 +67,7 @@ class UsersTransformer implements DataTransformerInterface
         }
 
         $filter = new LogicalAnd([
-            new Query\Criterion\ContentTypeIdentifier(['user']),
+            new Query\Criterion\ContentTypeIdentifier([$this->userContentTypeIdentifier]),
             new Query\Criterion\FullText($value),
         ]);
 

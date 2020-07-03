@@ -21,14 +21,25 @@ class SearchUsersType extends AbstractType
     /** @var \eZ\Publish\API\Repository\SearchService */
     protected $searchService;
 
-    public function __construct(SearchService $searchService)
-    {
+    /** @var string */
+    private $userContentTypeIdentifier;
+
+    public function __construct(
+        SearchService $searchService,
+        string $userContentTypeIdentifier
+    ) {
         $this->searchService = $searchService;
+        $this->userContentTypeIdentifier = $userContentTypeIdentifier;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer(new UsersTransformer($this->searchService));
+        $builder->addViewTransformer(
+            new UsersTransformer(
+                $this->searchService,
+                $this->userContentTypeIdentifier
+            )
+        );
     }
 
     public function getParent(): ?string
