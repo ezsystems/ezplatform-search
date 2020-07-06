@@ -10,8 +10,8 @@ namespace Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Configuration\P
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\View;
 
-class SearchListView extends View
+class SearchView extends View
 {
-    public const NODE_KEY = 'search_list_view';
+    public const NODE_KEY = 'search_view';
     public const INFO = 'Template for displaying main search form and results';
 }

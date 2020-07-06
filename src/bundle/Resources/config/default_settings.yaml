@@ -1,7 +1,7 @@
 parameters:
     ezsettings.site.pagination.search_limit: 10
 
-    ezsettings.site.search_list_view:
+    ezsettings.site.search_view:
         full:
             default:
                 template: "@@ezdesign/search/index.html.twig"

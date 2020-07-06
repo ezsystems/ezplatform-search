@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Compiler;
 
-use Ibexa\Platform\Search\View\SearchListViewBuilder;
+use Ibexa\Platform\Search\View\SearchViewBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ViewBuilderRegistryPass implements CompilerPassInterface
 {
     public const VIEW_BUILDER_REGISTRY = 'ezpublish.view_builder.registry';
-    public const VIEW_BUILDER_UPDATE_VIEW = SearchListViewBuilder::class;
+    public const VIEW_BUILDER_UPDATE_VIEW = SearchViewBuilder::class;
 
     public function process(ContainerBuilder $container): void
     {

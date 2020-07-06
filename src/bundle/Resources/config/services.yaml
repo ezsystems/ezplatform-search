@@ -8,7 +8,7 @@ services:
       tags:
           - controller.service_arguments
 
-  Ibexa\Platform\Search\View\SearchListViewBuilder:
+  Ibexa\Platform\Search\View\SearchViewBuilder:
       arguments:
           $viewConfigurator: '@ezpublish.view.configurator'
           $viewParametersInjector: '@ezpublish.view.view_parameters.injector.dispatcher'
@@ -16,28 +16,28 @@ services:
           $pagerSearchContentToDataMapper: '@Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper'
           $searchQueryType: '@Ibexa\Platform\Search\QueryType\SearchQueryType'
 
-  Ibexa\Platform\Search\View\SearchListViewProvider:
+  Ibexa\Platform\Search\View\SearchViewProvider:
       arguments:
-          $matcherFactory: '@platform.user.view.search_list.matcher_factory.dynamically_configured'
+          $matcherFactory: '@platform.user.view.search.matcher_factory.dynamically_configured'
       tags:
-         - { name: ezpublish.view_provider, type: Ibexa\Platform\Search\View\SearchListView, priority: 10 }
+         - { name: ezpublish.view_provider, type: Ibexa\Platform\Search\View\SearchView, priority: 10 }
 
-  platform.view.search_list.matcher_factory:
+  platform.view.search.matcher_factory:
       class: eZ\Bundle\EzPublishCoreBundle\Matcher\ServiceAwareMatcherFactory
       arguments:
           $viewMatcherRegistry: '@eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry'
           $repository: '@ezpublish.api.repository'
           $relativeNamespace: Ibexa\Platform\Search\View
 
-  platform.user.view.search_list.matcher_factory.dynamically_configured:
+  platform.user.view.search.matcher_factory.dynamically_configured:
       class: eZ\Publish\Core\MVC\Symfony\Matcher\DynamicallyConfiguredMatcherFactoryDecorator
-      decorates: platform.view.search_list.matcher_factory
+      decorates: platform.view.search.matcher_factory
       arguments:
-          $innerConfigurableMatcherFactory: '@platform.user.view.search_list.matcher_factory.dynamically_configured.inner'
+          $innerConfigurableMatcherFactory: '@platform.user.view.search.matcher_factory.dynamically_configured.inner'
           $configResolver: '@ezpublish.config.resolver'
-          $parameterName: search_list_view
+          $parameterName: search_view
 
-  Ibexa\Platform\Search\View\SearchListViewFilter:
+  Ibexa\Platform\Search\View\SearchViewFilter:
       arguments:
           $configResolver: '@ezpublish.config.resolver'
           $formFactory: '@Symfony\Component\Form\FormFactoryInterface'
@@ -48,8 +48,8 @@ services:
 
   Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType:
       arguments:
-         $translator: '@translator'
          $permissionResolver: '@eZ\Publish\API\Repository\PermissionResolver'
+         $configResolver: '@ezpublish.config.resolver'
       tags:
         - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType }
 

@@ -8,28 +8,29 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
 
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchData;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType as CoreSearchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use eZ\Publish\API\Repository\PermissionResolver;
 
-class SearchType extends AbstractType
+final class SearchType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
     private $permissionResolver;
 
-    public function __construct(TranslatorInterface $translator, PermissionResolver $permissionResolver)
-    {
-        $this->translator = $translator;
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    private $configResolver;
+
+    public function __construct(
+        PermissionResolver $permissionResolver,
+        ConfigResolverInterface $configResolver
+    ) {
         $this->permissionResolver = $permissionResolver;
+        $this->configResolver = $configResolver;
     }
 
     /**
@@ -42,8 +43,10 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('query', CoreSearchType::class, ['required' => false])
-            ->add('page', HiddenType::class)
-            ->add('limit', HiddenType::class)
+            ->add('page', HiddenType::class, ['empty_data' => 1])
+            ->add('limit', HiddenType::class, [
+                'empty_data' => $this->configResolver->getParameter('pagination.search_limit'),
+            ])
             ->add('content_types', ContentTypeChoiceType::class, [
                 'multiple' => true,
                 'expanded' => true,
@@ -51,18 +54,6 @@ class SearchType extends AbstractType
             ->add('last_modified', DateIntervalType::class)
             ->add('created', DateIntervalType::class)
             ->add('creator', UserType::class)
-            ->add('last_modified_select', ChoiceType::class, [
-                'choices' => $this->getTimePeriodChoices(),
-                'required' => false,
-                'placeholder' => /** @Desc("Any time") */ 'search.any_time',
-                'mapped' => false,
-            ])
-            ->add('created_select', ChoiceType::class, [
-                'choices' => $this->getTimePeriodChoices(),
-                'required' => false,
-                'placeholder' => /** @Desc("Any time") */ 'search.any_time',
-                'mapped' => false,
-            ])
             ->add(
                 'search_language',
                 LanguageChoiceType::class,
@@ -96,44 +87,6 @@ class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SearchData::class,
-            'error_mapping' => [
-                'created' => 'created_select',
-                'last_modified' => 'last_modified_select',
-            ],
         ]);
-    }
-
-    /**
-     * Generate time periods options available to choose.
-     *
-     * @return array
-     *
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     */
-    private function getTimePeriodChoices(): array
-    {
-        $choices = [];
-        foreach ($this->getTimePeriodField() as $label => $value) {
-            $choices[$label] = $value;
-        }
-
-        return $choices;
-    }
-
-    /**
-     * Returns available time periods values.
-     *
-     * @return array
-     *
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     */
-    private function getTimePeriodField(): array
-    {
-        return [
-            $this->translator->trans(/** @Desc("Last week") */ 'search.last_week', [], 'search') => 'P0Y0M7D',
-            $this->translator->trans(/** @Desc("Last month") */ 'search.last_month', [], 'search') => 'P0Y1M0D',
-            $this->translator->trans(/** @Desc("Last year") */ 'search.last_year', [], 'search') => 'P1Y0M0D',
-            $this->translator->trans(/** @Desc("Custom range") */ 'search.custom_range', [], 'search') => 'custom_range',
-        ];
     }
 }
