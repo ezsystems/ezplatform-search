@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService;
 use Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchUsersData;
 use Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer\UsersTransformer;
@@ -18,16 +19,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchUsersType extends AbstractType
 {
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
+
     /** @var \eZ\Publish\API\Repository\SearchService */
-    protected $searchService;
+    private $searchService;
 
     /** @var string */
     private $userContentTypeIdentifier;
 
     public function __construct(
+        Repository $repository,
         SearchService $searchService,
         string $userContentTypeIdentifier
     ) {
+        $this->repository = $repository;
         $this->searchService = $searchService;
         $this->userContentTypeIdentifier = $userContentTypeIdentifier;
     }
@@ -36,6 +42,7 @@ class SearchUsersType extends AbstractType
     {
         $builder->addViewTransformer(
             new UsersTransformer(
+                $this->repository,
                 $this->searchService,
                 $this->userContentTypeIdentifier
             )

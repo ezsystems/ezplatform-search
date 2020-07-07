@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
@@ -21,16 +22,21 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UsersTransformer implements DataTransformerInterface
 {
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
+
     /** @var \eZ\Publish\API\Repository\SearchService */
-    protected $searchService;
+    private $searchService;
 
     /** @var string */
     private $userContentTypeIdentifier;
 
     public function __construct(
+        Repository $repository,
         SearchService $searchService,
         string $userContentTypeIdentifier
     ) {
+        $this->repository = $repository;
         $this->searchService = $searchService;
         $this->userContentTypeIdentifier = $userContentTypeIdentifier;
     }
@@ -71,9 +77,13 @@ class UsersTransformer implements DataTransformerInterface
             new Query\Criterion\FullText($value),
         ]);
 
-        $result = $this->searchService->findContent(new Query([
-            'filter' => $filter,
-        ]));
+        $searchService = $this->searchService;
+
+        $result = $this->repository->sudo(function () use ($searchService, $filter) {
+            return $searchService->findContent(new Query([
+                'filter' => $filter,
+            ]));
+        });
 
         return new SearchUsersData(
             array_map(function (SearchHit $searchHit) {
