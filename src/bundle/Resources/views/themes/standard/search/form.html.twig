@@ -4,7 +4,7 @@
 <div>
     {{ form_widget(form.query) }}
     <span>
-        <span{% if form.search_language.vars.choices|length == 1 %}hidden{% endif %}>
+        <span {% if form.search_language.vars.choices|length == 1 %}hidden{% endif %}>
             {{ form_widget(form.search_language, {'attr': {'class': 'ez-search-form__language-selector'}}) }}
         </span>
     </span>
@@ -39,14 +39,7 @@
         </div>
         <div>
             <label>{{ 'search.creator'|trans|desc('Creator:') }}</label>
-            {% set creator = form.vars.data.creator %}
-            <div>
-                <input type="text"
-                    value="{{ creator is not empty ? ez_content_name(creator) }}"
-                    placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
-                    {{ creator is not empty ? 'disabled'  }}
-                >
-            </div>
+            {{ form_widget(form.search_in_users) }}
         </div>
     </div>
     <div>
@@ -55,5 +48,4 @@
         </button>
     </div>
 </div>
-{{ form_widget(form.creator, {'attr': {'hidden': 'hidden'}}) }}
 {{ form_end(form) }}

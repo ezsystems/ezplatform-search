@@ -112,6 +112,19 @@ class SearchQueryType extends OptionsResolverBasedQueryType
             );
         }
 
+        if (null !== $searchData->getSearchUsersData() && null !== $searchData->getSearchUsersData()->getQuery()) {
+            if (!empty($searchData->getSearchUsersData()->getPossibleUsers())) {
+                $criteria[] = new Criterion\UserMetadata(
+                    Criterion\UserMetadata::OWNER,
+                    Criterion\Operator::IN,
+                    array_column($searchData->getSearchUsersData()->getPossibleUsers(), 'id')
+                );
+            } else {
+                // If no users matched user query, do not return any content.
+                $criteria[] = new Criterion\MatchNone();
+            }
+        }
+
         if (null !== $searchData->getSubtree()) {
             $criteria[] = new Criterion\Subtree($searchData->getSubtree());
         }

@@ -1,0 +1,50 @@
+services:
+    Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType:
+        arguments:
+            $permissionResolver: '@eZ\Publish\API\Repository\PermissionResolver'
+            $configResolver: '@ezpublish.config.resolver'
+        tags:
+            - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchType }
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ConfiguredLanguagesChoiceLoader:
+        arguments:
+            $languageService: '@ezpublish.api.service.language'
+            $configResolver: '@ezpublish.config.resolver'
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\Type\UserType:
+        arguments:
+            $userService: '@ezpublish.api.service.user'
+        tags:
+            - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\UserType }
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\Type\LanguageChoiceType:
+        arguments:
+            $languageChoiceLoader: '@Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ConfiguredLanguagesChoiceLoader'
+        tags:
+            - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\UserType }
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ContentTypeChoiceLoader:
+        arguments:
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $userLanguagePreferenceProvider: '@eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider'
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\Type\ContentTypeChoiceType:
+        arguments:
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $contentTypeChoiceLoader: '@Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader\ContentTypeChoiceLoader'
+        tags:
+            - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\ContentTypeChoiceType }
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\Type\SectionChoiceType:
+        arguments:
+            $sectionService: '@eZ\Publish\Core\Repository\SiteAccessAware\SectionService'
+        tags:
+            - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SectionChoiceType }
+
+    Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchUsersType:
+        arguments:
+            $repository: '@ezpublish.api.repository'
+            $searchService: '@ezpublish.api.service.search'
+            $userContentTypeIdentifier: '%ezplatform.user.content_type_identifier%'
+        tags:
+            - { name: form.type, alias: Ibexa\Platform\Bundle\SearchBundle\Form\Type\SearchUsersType }
