@@ -112,7 +112,7 @@ class SearchQueryType extends OptionsResolverBasedQueryType
             );
         }
 
-        if (null !== $searchData->getSearchUsersData()) {
+        if (null !== $searchData->getSearchUsersData() && null !== $searchData->getSearchUsersData()->getQuery()) {
             if (!empty($searchData->getSearchUsersData()->getPossibleUsers())) {
                 $criteria[] = new Criterion\UserMetadata(
                     Criterion\UserMetadata::OWNER,
