@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
+namespace Ibexa\Platform\Bundle\Search\Form\Type;
 
 use eZ\Publish\API\Repository\UserService;
-use Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer\UserTransformer;
+use Ibexa\Platform\Bundle\Search\Form\DataTransformer\UserTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

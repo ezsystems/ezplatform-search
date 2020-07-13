@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\DependencyInjection;
+namespace Ibexa\Platform\Bundle\Search\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class PlatformSearchExtension extends Extension
+class IbexaPlatformSearchExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

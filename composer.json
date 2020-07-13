@@ -5,14 +5,14 @@
   "license": "GPL-2.0-only",
   "autoload": {
     "psr-4": {
-      "Ibexa\\Platform\\Bundle\\SearchBundle\\": "src/bundle/",
+      "Ibexa\\Platform\\Bundle\\Search\\": "src/bundle/",
       "Ibexa\\Platform\\Search\\": "src/lib/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Ibexa\\Platform\\Bundle\\SearchBundle\\Tests\\": "tests/bundle/",
-      "Ibexa\\Platform\\Search\\Tests\\": "tests/lib/"
+      "Ibexa\\Platform\\Tests\\Bundle\\Search\\": "tests/bundle/",
+      "Ibexa\\Platform\\Tests\\Search\\": "tests/lib/"
     }
   },
   "require": {

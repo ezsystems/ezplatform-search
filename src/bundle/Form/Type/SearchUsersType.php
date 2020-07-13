@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
+namespace Ibexa\Platform\Bundle\Search\Form\Type;
 
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService;
-use Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchUsersData;
-use Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer\UsersTransformer;
+use Ibexa\Platform\Bundle\Search\Form\Data\SearchUsersData;
+use Ibexa\Platform\Bundle\Search\Form\DataTransformer\UsersTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

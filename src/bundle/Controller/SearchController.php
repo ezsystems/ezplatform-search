@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Controller;
+namespace Ibexa\Platform\Bundle\Search\Controller;
 
 use Ibexa\Platform\Search\View\SearchView;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

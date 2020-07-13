@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\Data;
+namespace Ibexa\Platform\Bundle\Search\Form\Data;
 
 class SearchUsersData
 {

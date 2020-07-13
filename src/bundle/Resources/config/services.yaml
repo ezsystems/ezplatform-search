@@ -8,7 +8,7 @@ services:
       autowire: true
       public: false
 
-  Ibexa\Platform\Bundle\SearchBundle\Controller\SearchController:
+  Ibexa\Platform\Bundle\Search\Controller\SearchController:
       tags:
           - controller.service_arguments
 

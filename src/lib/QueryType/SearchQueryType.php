@@ -14,7 +14,7 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
-use Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchData;
+use Ibexa\Platform\Bundle\Search\Form\Data\SearchData;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchQueryType extends OptionsResolverBasedQueryType
@@ -29,7 +29,7 @@ class SearchQueryType extends OptionsResolverBasedQueryType
 
     protected function doGetQuery(array $parameters): Query
     {
-        /** @var \Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchData $searchData */
+        /** @var \Ibexa\Platform\Bundle\Search\Form\Data\SearchData $searchData */
         $searchData = $parameters['search_data'];
 
         $query = new Query();

@@ -2,4 +2,4 @@ ezplatform.search:
     path: /search
     methods: ['GET']
     defaults:
-      _controller: 'Ibexa\Platform\Bundle\SearchBundle\Controller\SearchController::searchAction'
+      _controller: 'Ibexa\Platform\Bundle\Search\Controller\SearchController::searchAction'

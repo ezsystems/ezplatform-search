@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
+namespace Ibexa\Platform\Bundle\Search\Form\Type;
 
-use Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer\DateIntervalTransformer;
+use Ibexa\Platform\Bundle\Search\Form\DataTransformer\DateIntervalTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;

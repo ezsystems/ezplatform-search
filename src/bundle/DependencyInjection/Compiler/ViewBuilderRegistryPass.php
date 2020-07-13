@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\DependencyInjection\Compiler;
+namespace Ibexa\Platform\Bundle\Search\DependencyInjection\Compiler;
 
 use Ibexa\Platform\Search\View\SearchViewBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

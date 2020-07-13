@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\ChoiceLoader;
+namespace Ibexa\Platform\Bundle\Search\Form\ChoiceLoader;
 
 use eZ\Publish\API\Repository\LanguageService;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
