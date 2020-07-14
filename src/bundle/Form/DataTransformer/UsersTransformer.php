@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer;
+namespace Ibexa\Platform\Bundle\Search\Form\DataTransformer;
 
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchUsersData;
+use Ibexa\Platform\Bundle\Search\Form\Data\SearchUsersData;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -44,7 +44,7 @@ class UsersTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific User object into a Users's ID.
      *
-     * @param \Ibexa\Platform\Bundle\SearchBundle\Form\Data\SearchUsersData|null $value
+     * @param \Ibexa\Platform\Bundle\Search\Form\Data\SearchUsersData|null $value
      *
      * @return mixed|null
      *

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\DataTransformer;
+namespace Ibexa\Platform\Bundle\Search\Form\DataTransformer;
 
 use DateTime;
 use Symfony\Component\Form\DataTransformerInterface;

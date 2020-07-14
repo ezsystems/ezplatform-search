@@ -51,7 +51,7 @@ class SearchViewBuilder implements ViewBuilder
 
     public function matches($argument): bool
     {
-        return 'Ibexa\Platform\Bundle\SearchBundle\Controller\SearchController::searchAction' === $argument;
+        return 'Ibexa\Platform\Bundle\Search\Controller\SearchController::searchAction' === $argument;
     }
 
     public function buildView(array $parameters): SearchView

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Platform\Bundle\SearchBundle\Form\Type;
+namespace Ibexa\Platform\Bundle\Search\Form\Type;
 
 use eZ\Publish\API\Repository\SectionService;
 use Symfony\Component\Form\AbstractType;
