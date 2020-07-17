@@ -20,7 +20,7 @@ use eZ\Publish\Core\Helper\TranslationHelper;
 use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Pagerfanta\Pagerfanta;
 
-class PagerSearchContentToDataMapper
+class PagerSearchContentToSearchDataMapper implements PagerSearchDataMapper
 {
     /** @var \eZ\Publish\API\Repository\ContentTypeService */
     private $contentTypeService;

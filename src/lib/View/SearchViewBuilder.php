@@ -15,7 +15,7 @@ use eZ\Publish\Core\MVC\Symfony\View\Configurator;
 use eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
 use eZ\Publish\Core\QueryType\QueryType;
-use Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper;
+use Ibexa\Platform\Search\Mapper\PagerSearchDataMapper;
 use Pagerfanta\Pagerfanta;
 
 class SearchViewBuilder implements ViewBuilder
@@ -29,7 +29,7 @@ class SearchViewBuilder implements ViewBuilder
     /** @var \eZ\Publish\API\Repository\SearchService */
     private $searchService;
 
-    /** @var \Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper */
+    /** @var \Ibexa\Platform\Search\Mapper\PagerSearchDataMapper */
     private $pagerSearchContentToDataMapper;
 
     /** @var \eZ\Publish\Core\QueryType\QueryType */
@@ -39,7 +39,7 @@ class SearchViewBuilder implements ViewBuilder
         Configurator $viewConfigurator,
         ParametersInjector $viewParametersInjector,
         SearchService $searchService,
-        PagerSearchContentToDataMapper $pagerSearchContentToDataMapper,
+        PagerSearchDataMapper $pagerSearchContentToDataMapper,
         QueryType $searchQueryType
     ) {
         $this->viewConfigurator = $viewConfigurator;
