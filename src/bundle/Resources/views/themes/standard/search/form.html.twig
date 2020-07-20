@@ -1,5 +1,7 @@
 {% trans_default_domain 'search' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {{ form_start(form) }}
 <div>
     {{ form_widget(form.query) }}
