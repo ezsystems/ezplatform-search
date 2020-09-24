@@ -15,7 +15,7 @@
 <div>
     <div>
         <div>
-            <label>{{ 'search.content.type'|trans|desc('Content Type:') }}</label>
+            <label>{{ 'search.content.type'|trans|desc('Content Type') }}:</label>
                 <select hidden>
                     <option data-default="{{ 'search.any.content.type'|trans|desc('Any Content Type') }}" value="">{{ 'search.any.content.type'|trans|desc('Any Content Type') }}</option>
                 </select>
@@ -25,22 +25,22 @@
     <div>
         {% if form.section is defined %}
             <div>
-                <label>{{ 'search.section'|trans|desc('Section:') }}</label>
+                <label>{{ 'search.section'|trans|desc('Section') }}:</label>
                 {{ form_widget(form.section, {'attr': {'class': 'ez-filters__select'}}) }}
             </div>
         {% endif %}
     </div>
     <div>
         <div>
-            <label>{{ 'search.last.modified'|trans|desc('Last modified:') }}</label>
+            <label>{{ 'search.last.modified'|trans|desc('Last modified') }}:</label>
             {{ form_widget(form.last_modified) }}
         </div>
         <div>
-            <label>{{ 'search.created'|trans|desc('Created:') }}</label>
+            <label>{{ 'search.created'|trans|desc('Created') }}:</label>
             {{ form_widget(form.created) }}
         </div>
         <div>
-            <label>{{ 'search.creator'|trans|desc('Creator:') }}</label>
+            <label>{{ 'search.creator'|trans|desc('Creator') }}:</label>
             {{ form_widget(form.search_in_users) }}
         </div>
     </div>
