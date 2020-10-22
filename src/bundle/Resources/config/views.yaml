@@ -36,3 +36,5 @@ services:
             $searchService: '@ezpublish.api.service.search'
             $pagerSearchContentToDataMapper: '@Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper'
             $searchQueryType: '@Ibexa\Platform\Search\QueryType\SearchQueryType'
+        tags:
+            - { name: ibexa.view_builder }
