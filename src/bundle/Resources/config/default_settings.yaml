@@ -1,5 +1,5 @@
 parameters:
-    ezsettings.site.pagination.search_limit: 10
+    ezsettings.default.search.pagination.limit: 10
 
     ezsettings.site.search_view:
         full:
