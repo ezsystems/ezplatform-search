@@ -73,7 +73,7 @@ class SearchViewFilter implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $search = $request->query->get('search');
-        $limit = isset($search['limit']) ? (int)$search['limit'] : $this->configResolver->getParameter('pagination.search_limit');
+        $limit = isset($search['limit']) ? (int)$search['limit'] : $this->configResolver->getParameter('search.pagination.limit');
         $page = isset($search['page']) ? (int)$search['page'] : 1;
         $query = $search['query'] ?? '';
         $section = null;

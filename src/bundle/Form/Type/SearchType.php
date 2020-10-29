@@ -45,7 +45,7 @@ final class SearchType extends AbstractType
             ->add('query', CoreSearchType::class, ['required' => false])
             ->add('page', HiddenType::class, ['empty_data' => 1])
             ->add('limit', HiddenType::class, [
-                'empty_data' => $this->configResolver->getParameter('pagination.search_limit'),
+                'empty_data' => $this->configResolver->getParameter('search.pagination.limit'),
             ])
             ->add('content_types', ContentTypeChoiceType::class, [
                 'multiple' => true,
