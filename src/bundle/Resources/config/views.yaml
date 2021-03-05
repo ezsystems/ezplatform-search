@@ -26,6 +26,7 @@ services:
             $formFactory: '@Symfony\Component\Form\FormFactoryInterface'
             $sectionService: '@ezpublish.api.service.section'
             $contentTypeService: '@ezpublish.api.service.content_type'
+            $router: '@router'
         tags:
             - { name: kernel.event_subscriber }
 
