@@ -18,7 +18,7 @@ use Ibexa\Platform\Bundle\Search\Form\Type\SearchType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SearchViewFilter implements EventSubscriberInterface
 {
@@ -34,21 +34,21 @@ class SearchViewFilter implements EventSubscriberInterface
     /** @var \eZ\Publish\API\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    private $router;
+    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    private $urlGenerator;
 
     public function __construct(
         ConfigResolverInterface $configResolver,
         FormFactoryInterface $formFactory,
         SectionService $sectionService,
         ContentTypeService $contentTypeService,
-        RouterInterface $router
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->configResolver = $configResolver;
         $this->formFactory = $formFactory;
         $this->sectionService = $sectionService;
         $this->contentTypeService = $contentTypeService;
-        $this->router = $router;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public static function getSubscribedEvents()
@@ -116,7 +116,7 @@ class SearchViewFilter implements EventSubscriberInterface
             [
                 'method' => Request::METHOD_GET,
                 'csrf_protection' => false,
-                'action' => $this->router->generate('ezplatform.search'),
+                'action' => $this->urlGenerator->generate('ezplatform.search'),
             ]
         );
 
