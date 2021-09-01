@@ -21,7 +21,7 @@ services:
         arguments:
             $languageChoiceLoader: '@Ibexa\Platform\Bundle\Search\Form\ChoiceLoader\ConfiguredLanguagesChoiceLoader'
         tags:
-            - { name: form.type, alias: Ibexa\Platform\Bundle\Search\Form\Type\UserType }
+            - { name: form.type, alias: Ibexa\Platform\Bundle\Search\Form\Type\LanguageChoiceType }
 
     Ibexa\Platform\Bundle\Search\Form\ChoiceLoader\ContentTypeChoiceLoader:
         arguments:
