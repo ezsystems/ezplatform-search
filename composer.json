@@ -17,7 +17,7 @@
   },
   "require": {
     "php": "^7.3",
-    "ezsystems/ezplatform-kernel": "^4.0@dev",
+    "ezsystems/ezplatform-kernel": "^4.0",
     "symfony/dependency-injection": "^5.0",
     "symfony/http-kernel": "^5.0",
     "symfony/http-foundation": "^5.0",
@@ -30,7 +30,7 @@
     "phpunit/phpunit": "^8.5",
     "friendsofphp/php-cs-fixer": "^2.16",
     "ezsystems/ezplatform-code-style": "^0.1",
-    "ezsystems/doctrine-dbal-schema": "^4.0@dev"
+    "ezsystems/doctrine-dbal-schema": "^4.0"
   },
   "scripts": {
     "fix-cs": "@php ./vendor/bin/php-cs-fixer fix -v --show-progress=estimating"
