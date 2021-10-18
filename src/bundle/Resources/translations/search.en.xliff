@@ -61,6 +61,11 @@
         <target>Section</target>
         <note>key: search.section</note>
       </trans-unit>
+      <trans-unit id="03d6d5922fd2012e155e50306eaf98e2dfeb21c6" resname="search.section.any">
+        <source>Any section</source>
+        <target state="new">Any section</target>
+        <note>key: search.section.any</note>
+      </trans-unit>
       <trans-unit id="777cc1ef279096d5a978aa3553e9434d828f8248" resname="search.tips.check_spelling">
         <source>Check the spelling of keywords.</source>
         <target>Check the spelling of keywords.</target>

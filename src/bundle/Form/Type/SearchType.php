@@ -90,6 +90,7 @@ final class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SearchData::class,
+            'translation_domain' => 'search',
         ]);
     }
 }
