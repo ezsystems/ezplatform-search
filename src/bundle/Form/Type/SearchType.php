@@ -11,7 +11,7 @@ namespace Ibexa\Platform\Bundle\Search\Form\Type;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Ibexa\Platform\Bundle\Search\Form\Data\SearchData;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SearchType as CoreSearchType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as CoreTextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -42,7 +42,7 @@ final class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('query', CoreSearchType::class, ['required' => false])
+            ->add('query', CoreTextType::class, ['required' => false])
             ->add('page', HiddenType::class, ['empty_data' => 1])
             ->add('limit', HiddenType::class, [
                 'empty_data' => $this->configResolver->getParameter('search.pagination.limit'),
