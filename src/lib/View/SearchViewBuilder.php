@@ -67,7 +67,7 @@ class SearchViewBuilder implements ViewBuilder
             $searchLanguageCode = ($data->getSearchLanguage() instanceof Language)
                 ? $data->getSearchLanguage()->languageCode
                 : null;
-            $languageFilter = $this->getSearchLanguageFilter($searchLanguageCode, $queryString);
+            $languageFilter = $this->getSearchLanguageFilter($searchLanguageCode);
 
             $pagerfanta = new Pagerfanta(
                 new ContentSearchHitAdapter(
@@ -95,17 +95,11 @@ class SearchViewBuilder implements ViewBuilder
         return $view;
     }
 
-    private function getSearchLanguageFilter(?string $languageCode, ?string $queryString): array
+    private function getSearchLanguageFilter(?string $languageCode): array
     {
-        $filter = [
+        return [
             'languages' => !empty($languageCode) ? [$languageCode] : [],
             'useAlwaysAvailable' => true,
         ];
-
-        if (!empty($queryString)) {
-            $filter['excludeTranslationsFromAlwaysAvailable'] = false;
-        }
-
-        return $filter;
     }
 }
