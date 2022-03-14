@@ -63,7 +63,6 @@ class SearchViewBuilder implements ViewBuilder
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $queryString = $data->getQuery();
             $searchLanguageCode = ($data->getSearchLanguage() instanceof Language)
                 ? $data->getSearchLanguage()->languageCode
                 : null;
